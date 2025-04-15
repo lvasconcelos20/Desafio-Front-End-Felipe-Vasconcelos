@@ -1,9 +1,10 @@
 "use client";
 import InputField from "@/components/molecules/InputField/inputField";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import Button from "@/components/atoms/Button/button";
 
 export default function LoginPage() {
   const { register } = useForm({
