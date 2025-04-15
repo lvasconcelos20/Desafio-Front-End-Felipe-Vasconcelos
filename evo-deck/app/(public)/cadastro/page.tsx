@@ -63,7 +63,7 @@ export default function CadastroPage() {
             </form>
         
             <div className="flex items-center mt-4  text-[#659AD6]">
-                Já possui uma conta?<Link href={"/pages/login"} className="p-2 text-[#355070]">Fazer Login</Link>
+                Já possui uma conta?<Link href={"/login"} className="p-2 text-[#355070]">Fazer Login</Link>
               
 
             </div>

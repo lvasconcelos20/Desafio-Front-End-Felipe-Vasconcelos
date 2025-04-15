@@ -1,12 +1,21 @@
-import Link from "next/link";
-import Login from "./(public)/login/page";
 
-import PublicOnlyFeature from "@/components/templates/Public/public";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import useAuth from "@/source/hooks/useAuth";
 
 export default function Home() {
-  return (
-   <PublicOnlyFeature>
-    <Login />
-   </PublicOnlyFeature>
-  );
+  const router = useRouter();
+  const { userUid } = useAuth();
+
+  useEffect(() => {
+    if (userUid) {
+      router.push("/home");
+    } else {
+      router.push("/login");
+    }
+  }, [userUid]);
+
+  return null;
 }

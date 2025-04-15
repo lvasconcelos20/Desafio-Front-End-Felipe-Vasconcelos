@@ -12,8 +12,8 @@ import UserProvider from "@/source/store/providers/User";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Evo ",
-  description: "Firebase boilerplate to get started quickly"
+  title: "EvoDeck",
+  description: "evodeck"
 };
 
 export default function RootLayout({

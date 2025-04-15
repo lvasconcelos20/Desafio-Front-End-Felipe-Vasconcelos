@@ -64,12 +64,6 @@ const AuthProvider = ({ children }: Props) => {
       email,
       password
     );
-    if (user && !user?.emailVerified) {
-      errorToast("Por favor verifique seu email");
-      setLoading((prev) => ({ ...prev, loginWithInternalService: false }));
-      logOut();
-      return;
-    }
     if (user) {
       successToast("Bem vindo de volta!");
       setUserUid(user.uid);
