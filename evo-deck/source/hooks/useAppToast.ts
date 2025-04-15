@@ -15,12 +15,7 @@ const errorToast = async (message: string) => {
     case "EMAIL_NOT_FOUND":
       toast.error("ALOU", toastConfig);
       break;
-    case "verify-email":
-      toast.error("Você precisa confirmar seu e-mail!", {
-        ...toastConfig,
-        autoClose: 3000
-      });
-      break;
+
     case "auth/credential-already-in-use":
       toast.error("E-mail já cadastrado.", toastConfig);
       break;

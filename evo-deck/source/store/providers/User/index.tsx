@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import useProfile from "@/hooks/queries/useProfile";
-import { errorToast, successToast } from "@/hooks/useAppToast";
-import { getAllUsers, updateUserDoc } from "@/store/services/user";
-import { UserEntity } from "@common/entities/user";
-import useAuth from "@hooks/useAuth";
+import useProfile from "@/source/hooks/queries/useProfile";
+import { errorToast, successToast } from "@/source/hooks/useAppToast";
+import { getAllUsers} from "@/source/store/services/user";
+import { UserEntity } from "@/common/entities/user";
+import useAuth from "@/source/hooks/useAuth";
 
 import UserContext from "./context";
 
@@ -24,22 +24,7 @@ const UserProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(initialLoadingObject);
   const [allUsers, setAllUsers] = useState<UserEntity[] | null>();
 
-  const updateUser = async ({
-    uid,
-    email,
-    name,
-    dob,
-    phone
-  }: Partial<UserEntity>) => {
-    setLoading((prev) => ({ ...prev, updateUserDoc: true }));
-    const finalUid = uid ?? (user?.uid || "");
-    const { error } = await updateUserDoc(finalUid, email, name, dob, phone);
-    if (!error) {
-      successToast("Profile updated");
-    }
-    errorToast(error);
-    setLoading((prev) => ({ ...prev, updateUserDoc: false }));
-  };
+
 
   const fetchAllUsers = async () => {
     setLoading((prev) => ({ ...prev, getAllUsers: true }));
@@ -55,7 +40,6 @@ const UserProvider = ({ children }: Props) => {
     <UserContext.Provider
       value={{
         loading,
-        updateUser,
         fetchAllUsers,
         allUsers
       }}

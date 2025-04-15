@@ -1,4 +1,4 @@
-import {signInWithEmailAndPassword, getAuth, signOut, onAuthStateChanged, User,   sendEmailVerification,   createUserWithEmailAndPassword} from 'firebase/auth'
+import {signInWithEmailAndPassword, getAuth, signOut, onAuthStateChanged, User,   createUserWithEmailAndPassword} from 'firebase/auth'
 
 import  firebaseApp  from '@/source/config/firebase'
 
@@ -31,9 +31,7 @@ export const createUserWithEmailAndPasswordLocal = async (
         email,
         password
       );
-      await sendEmailVerification(userCred.user, {
-        url: String(process.env.NEXT_PUBLIC_LOGIN_URL)
-      });
+     
       return {
         user: userCred.user,
         error: null

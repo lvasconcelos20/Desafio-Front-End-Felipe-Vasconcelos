@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
     "@tailwindcss/postcss": "^4.1.4",
+    "@tanstack/query-sync-storage-persister": "^5.74.3",
+    "@tanstack/react-query": "^5.74.3",
+    "@tanstack/react-query-persist-client": "^5.74.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.6.0",
