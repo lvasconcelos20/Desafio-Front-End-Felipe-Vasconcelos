@@ -58,7 +58,7 @@ export default function Navbar({ menuItems}: NavbarProps) {
   
 
   return (
-    <nav className=" fixed top-0 z-50 flex h-20 w-full items-center justify-between px-4  bg-[#4A709C]">
+    <nav className=" fixed top-0 z-50 flex h-20 w-full items-center justify-between   bg-[#4A709C]">
       <div className="flex h-full items-center gap-10">
       
          <Image src={'/logomini.png'} alt="logo" width={200} height={80}/>
@@ -78,7 +78,7 @@ export default function Navbar({ menuItems}: NavbarProps) {
           onClick={() => setIsMenuOpen((prevState) => !prevState)}
           className="block cursor-pointer lg:hidden"
         >
-          <FiMenu size={32} color="#1681BC" />
+          <FiMenu size={32} color="#fff" />
         </button>
       )}
       {isMenuOpen && (

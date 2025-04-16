@@ -70,13 +70,13 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-between pt-30">
-      <div className="flex items-center justify-between gap-6">
+    <div className="w-full min-h-screen flex flex-col items-center justify-between pt-24">
+      <div className="flex items-center justify-between gap-6 pb-3 md:pb-5 sm:py-4  ">
           
-          <Input placeholder="Busque pelo nome do Pokemon.." type="text" onChange={(event) => {setPokemonName(event.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") searchPokemon()}} className="w-96"/>
-          <Button onClick={searchPokemon} className="text-[#004FAA]"> Search Pokemon </Button>
-        </div>
-      <div className="grid w-full gap-4 sm:grid-cols-2 md:grid-cols-3 md:pl-6 lg:grid-cols-4 xl:grid-cols-6 xl:gap-6 xl:pr-6">
+          <Input placeholder="Pesquise pelo nome.." type="text" onChange={(event) => {setPokemonName(event.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") searchPokemon()}} className="xl:w-96 lg:w-96 md:w-80" />
+          <Button onClick={searchPokemon} className="text-[#004FAA] w-20 text-xs"> Search Pokemon </Button>
+      </div>
+      <div className="grid w-full justify-center gap-y-2 sm:grid-cols-2 sm:pl-26 md:grid-cols-3 md:pl-10  lg:grid-cols-4 lg:pl-7 xl:grid-cols-6 xl:pl-10 ">
         
         {currentPokemons.map((pokemon, key) => (
           <PokemonCard

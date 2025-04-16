@@ -25,14 +25,14 @@ export default function PokemonCard({image, name, types}: PokemonCardProps) {
       <Card
   sx={{
     width: {
-      xs: 160,  
+      xs: 200,  
       sm: 200,  
       md: 230, 
       lg: 210,
       xl: 250, 
     },
     height: {
-      xs: 220,
+      xs: 280,
       sm: 260,
       md: 300,
       lg: 270,
@@ -59,11 +59,28 @@ export default function PokemonCard({image, name, types}: PokemonCardProps) {
       />
       <CardContent sx={{ padding: '12px' }}>
       <Box display="flex" justifyContent={"space-between"} alignItems={"center"} >
-        <Typography variant="h5" sx={{ color: '#004FAA', textTransform: 'capitalize', fontWeight: 600, fontSize: {lg: 18, md: 20, xs: 16}, textAlign: {xs: 'center'} }}>
+      <Typography
+          sx={{
+            color: '#004FAA',
+            textTransform: 'capitalize',
+            fontWeight: 600,
+            fontSize: { lg: 18, md: 20, xs: 16 },
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis'
+          }}
+        >
           {name}
         </Typography>
       
-        <Typography variant="caption" sx={{ color: '#004FAA', textTransform: 'capitalize' }}>
+        <Typography
+            variant="caption"
+            sx={{
+              color: '#004FAA',
+              textTransform: 'capitalize',
+              fontSize: { xs: 12, md: 14 },
+              textAlign: 'right'
+            }}
+        >
           {typeHandler()}
         </Typography>
         </Box>
