@@ -9,13 +9,14 @@ import { FiMenu, FiX } from "react-icons/fi";
 
 import Button from "@/components/atoms/Button/button";
 import useAuth from "@/source/hooks/useAuth";
-import SearchInput from "@/components/atoms/SearchInput/searchInput";
 
 import { NavbarProps, ResponsiveMenuProps } from "./types";
 
 function ResponsiveMenu({ menuItems, onCloseMenu }: ResponsiveMenuProps) {
+
   const pathname = usePathname();
   const { logoutUser, loading } = useAuth();
+  
 
   return (
     <div className="absolute inset-0 z-30 flex h-screen w-screen items-center justify-center bg-white lg:hidden">
@@ -50,9 +51,11 @@ function ResponsiveMenu({ menuItems, onCloseMenu }: ResponsiveMenuProps) {
   );
 }
 
-export default function Navbar({ menuItems }: NavbarProps) {
+export default function Navbar({ menuItems}: NavbarProps) {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { logoutUser, loading } = useAuth();
+  
 
   return (
     <nav className=" fixed top-0 z-50 flex h-20 w-full items-center justify-between px-4  bg-[#4A709C]">
@@ -61,9 +64,8 @@ export default function Navbar({ menuItems }: NavbarProps) {
          <Image src={'/logomini.png'} alt="logo" width={200} height={80}/>
        
       </div>
-      <div className="w-full flex items-center justify-center">
-         <SearchInput/>
-      </div>
+   
+    
       <div className="hidden lg:block">
        
         <Button onClick={logoutUser} loading={loading.logout} className="border-none bg-transparent" >

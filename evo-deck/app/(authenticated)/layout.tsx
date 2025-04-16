@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <AuthenticatedOnlyFeature>
     <main className="flex h-screen w-full flex-col items-center justify-center">
-        <Navbar menuItems={authMenuItems} />
+        <Navbar menuItems={authMenuItems}/>
         {children}
       </main>
     </AuthenticatedOnlyFeature>
