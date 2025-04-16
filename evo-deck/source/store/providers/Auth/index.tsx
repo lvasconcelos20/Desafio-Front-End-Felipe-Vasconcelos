@@ -95,6 +95,7 @@ const AuthProvider = ({ children }: Props) => {
         return;
       }
       await createNewUserDoc({
+        id: user?.uid || "",
         email,
         name,
         username,

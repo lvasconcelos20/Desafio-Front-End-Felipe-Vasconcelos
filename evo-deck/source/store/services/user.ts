@@ -52,14 +52,16 @@ export const createNewUserDoc = async ({
     id,
     email,
     name,
-    username
+    username, 
+    password
 
   }: UserEntity) => {
     try {
       await setDoc(doc(db, tableName, id || ""), {
         name,
         email,
-        username
+        username,
+        password
       });
       return { error: null };
     } catch (error: any) {

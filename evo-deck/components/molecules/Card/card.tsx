@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 interface PokemonCardProps {
   image: string;
   name: string;
-  types: { type: { name: string } }[];
+  types: string;
 }
 
 
@@ -50,6 +50,8 @@ export default function PokemonCard({image, name, types}: PokemonCardProps) {
       boxShadow: '0 0 10px rgba(255, 255, 255, 0.4)',
     },
   }}
+  
+  
 >
       <CardMedia
         component="img"
@@ -58,7 +60,7 @@ export default function PokemonCard({image, name, types}: PokemonCardProps) {
         sx={{ height: 260, width: 300, borderBottom: "2px solid #659AD6"} }
       />
       <CardContent sx={{ padding: '12px' }}>
-      <Box display="flex" justifyContent={"space-between"} alignItems={"center"} >
+      <Box display="flex" justifyContent={"space-between"} alignItems={"center"}  >
       <Typography
           sx={{
             color: '#004FAA',

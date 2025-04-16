@@ -1,9 +1,12 @@
 "use client";
-import axios, { Axios } from "axios";
-import { useEffect, useState, useMemo } from "react";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import PokemonCard from "@/components/molecules/Card/card";
-
+import Input from "@/components/atoms/Input/input";
+import Button from "@/components/atoms/Button/button";
 import {
   Pagination,
   PaginationContent,
@@ -12,14 +15,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import Input from "@/components/atoms/Input/input";
-import Button from "@/components/atoms/Button/button";
-import { Search } from "lucide-react";
 
 export default function Home() {
   const [pokemons, setPokemons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonName, setPokemonName] = useState("")
+  const [pokemonName, setPokemonName] = useState("");
+  const router = useRouter();
 
   const pokemonsPerPage = 12;
 
@@ -39,28 +40,23 @@ export default function Home() {
   };
 
   const searchPokemon = () => {
-    if (!pokemonName.trim()){
+    if (!pokemonName.trim()) {
       getPokemon();
-      return
-    };
-  
+      return;
+    }
+
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)
       .then((response) => {
         setPokemons([response]);
         setCurrentPage(1);
       })
-      .catch((error) => {
-        console.error("Pokémon não encontrado:", error);
-        setPokemons([]);
-      });
+      .catch(() => setPokemons([]));
   };
-
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
-
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
 
   const handlePageChange = (page: number) => {
@@ -69,49 +65,68 @@ export default function Home() {
     }
   };
 
+  const pokemonPickHandler = (pokemonName: string) => {
+    router.push(`/home/${pokemonName}`);
+  };
+
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-between pt-24">
-      <div className="flex items-center justify-between gap-6 pb-3 md:pb-5 sm:py-4  ">
-          
-          <Input placeholder="Pesquise pelo nome.." type="text" onChange={(event) => {setPokemonName(event.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") searchPokemon()}} className="xl:w-96 lg:w-96 md:w-80" />
-          <Button onClick={searchPokemon} className="text-[#004FAA] w-20 text-xs"> Search Pokemon </Button>
+    <div className="w-full min-h-screen bg-gradient-to-b from-blue-100 to-white pt-24 px-4 flex flex-col items-center">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+        <Input
+          placeholder="Pesquise pelo nome..."
+          type="text"
+          onChange={(event) => setPokemonName(event.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && searchPokemon()}
+          className="xl:w-96 lg:w-96 md:w-80"
+        />
+        <Button
+          onClick={searchPokemon}
+          className="text-[#004FAA] bg-white border border-[#004FAA] hover:bg-blue-100 transition-all"
+        >
+          Buscar
+        </Button>
       </div>
-      <div className="grid w-full justify-center gap-y-2 sm:grid-cols-2 sm:pl-26 md:grid-cols-3 md:pl-10  lg:grid-cols-4 lg:pl-7 xl:grid-cols-6 xl:pl-10 ">
-        
+
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
         {currentPokemons.map((pokemon, key) => (
-          <PokemonCard
+          <div
             key={key}
-            image={pokemon.data.sprites.front_default}
-            name={pokemon.data.name}
-            types={pokemon.data.types}
-          />
+            className="cursor-pointer transition-transform hover:scale-105"
+            onClick={() => pokemonPickHandler(pokemon.data.name)}
+          >
+            <PokemonCard
+              image={pokemon.data.sprites.front_default}
+              name={pokemon.data.name}
+              types={pokemon.data.types}
+            />
+          </div>
         ))}
       </div>
 
-      <div className="py-3">
-        <Pagination>
-          <PaginationContent className="text-[#004FAA]">
-            <PaginationItem>
-              <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
-            </PaginationItem>
-
-            {Array.from({ length: totalPages }, (_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink
-                  isActive={currentPage === i + 1}
-                  onClick={() => handlePageChange(i + 1)}
-                >
-                  {i + 1}
-                </PaginationLink>
+      {totalPages > 1 && (
+        <div className="py-6">
+          <Pagination>
+            <PaginationContent className="text-[#004FAA]">
+              <PaginationItem>
+                <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
               </PaginationItem>
-            ))}
-
-            <PaginationItem>
-              <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <PaginationItem key={i}>
+                  <PaginationLink
+                    isActive={currentPage === i + 1}
+                    onClick={() => handlePageChange(i + 1)}
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
     </div>
   );
 }
