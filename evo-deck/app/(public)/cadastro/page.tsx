@@ -31,8 +31,6 @@ export default function CadastroPage() {
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row relative overflow-hidden">
-      
-      {/* Lado esquerdo - Desktop only */}
       <div className="hidden md:flex w-1/2 h-full bg-gradient-to-b from-[#B1D5FF] via-[#2C8EFD] to-[#004FAA] items-center justify-center relative">
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-white text-center px-6">
           <p className="text-4xl font-bold mb-8">A evolução começa com um clique!</p>
@@ -48,7 +46,6 @@ export default function CadastroPage() {
         </div>
       </div>
 
-      {/* Formulário */}
       <div className="w-full md:w-1/2 h-full relative z-10 bg-white">
         <Image
           src="/background.png"
@@ -100,7 +97,7 @@ export default function CadastroPage() {
               />
               <Button
                 loading={loading?.createUserWithInternalService}
-                className="w-full h-10 text-lg bg-gradient-to-b from-[#B1D5FF] via-[#4A709C] to-[#004FAA]"
+                className="w-full h-10 text-lg bg-gradient-to-b text-white from-[#B1D5FF] via-[#4A709C] to-[#004FAA]"
               >
                 Entrar
               </Button>

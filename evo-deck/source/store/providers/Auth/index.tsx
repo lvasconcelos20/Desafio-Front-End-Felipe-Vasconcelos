@@ -8,19 +8,20 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { UserEntity as UserDoc } from "@/common/entities/user";
-import  firebaseApp  from '@/source/config/firebase'
+import firebaseApp from "@/source/config/firebase";
 import { errorToast, successToast } from "@/source/hooks/useAppToast";
+
 import {
   createUserWithEmailAndPasswordLocal,
-
   logOut,
-
-  signInWithEmailAndPasswordLocal
+  signInWithEmailAndPasswordLocal,
 } from "@/source/store/services/auth";
+
 import {
   createNewUserDoc,
-  waitForUser
+  waitForUser,
 } from "@/source/store/services/user";
+
 import SignUpForm from "@/validations/signUp";
 
 import AuthContext from "./context";
@@ -37,8 +38,9 @@ const AuthProvider = ({ children }: Props) => {
     onAuthUserChanged: true,
     loginWithInternalService: false,
     createUserWithInternalService: false,
-    logout: false
+    logout: false,
   };
+
   const [userUid, setUserUid] = useState<string>("");
   const [loading, setLoading] = useState(initialLoadingObject);
   const router = useRouter();
@@ -57,7 +59,6 @@ const AuthProvider = ({ children }: Props) => {
     return () => unsubscribe();
   }, []);
 
- 
   const loginWithInternalService = async (email: string, password: string) => {
     setLoading((prev) => ({ ...prev, loginWithInternalService: true }));
     const { error, user } = await signInWithEmailAndPasswordLocal(
@@ -78,37 +79,47 @@ const AuthProvider = ({ children }: Props) => {
     email,
     password,
     name,
-    username
+    username,
   }: SignUpFormValidationData) => {
-    if (email && password) {
-      setLoading((prev) => ({ ...prev, createUserWithInternalService: true }));
+    if (!email || !password) {
+      errorToast("Email e senha inválidos");
+      return;
+    }
+
+    setLoading((prev) => ({ ...prev, createUserWithInternalService: true }));
+
+    try {
       const { error, user } = await createUserWithEmailAndPasswordLocal(
         email,
         password
       );
-      if (error) {
-        errorToast(error);
-        setLoading((prev) => ({
-          ...prev,
-          createUserWithInternalService: false
-        }));
+
+      if (error || !user) {
+        errorToast(error || "Erro ao criar usuário");
         return;
       }
+
       await createNewUserDoc({
-        id: user?.uid || "",
+        id: user.uid,
         email,
         name,
         username,
         password,
       });
-      setUserUid(user?.uid || "");
+
+      setUserUid(user.uid);
+
       toast("Conta criada! Enviamos um email de confirmação ao seu email", {
-        type: "success"
+        type: "success",
       });
       router.push("/login");
-      setLoading((prev) => ({ ...prev, createUserWithInternalService: false }));
-    } else {
-      errorToast("Email e senha inválidos");
+    } catch (err) {
+      errorToast("Erro inesperado ao criar conta");
+    } finally {
+      setLoading((prev) => ({
+        ...prev,
+        createUserWithInternalService: false,
+      }));
     }
   };
 
@@ -122,9 +133,6 @@ const AuthProvider = ({ children }: Props) => {
     });
     setLoading((prev) => ({ ...prev, onAuthUserChanged: false }));
   };
- 
-
- 
 
   const logoutUser = async () => {
     setLoading((prev) => ({ ...prev, logout: true }));
@@ -143,7 +151,7 @@ const AuthProvider = ({ children }: Props) => {
         logoutUser,
         setUserUid,
         createUserWithInternalService,
-        waitForUserSync
+        waitForUserSync,
       }}
     >
       {children}
