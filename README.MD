@@ -1,6 +1,6 @@
-# 🧬 Evo Deck - Enciclopédia Pokémon
+# 🧬 Evo Deck
 
-O **Evo Deck** é uma aplicação web responsiva construída com **Next.js** que consome a [PokeAPI](https://pokeapi.co/) para exibir informações detalhadas sobre Pokémons, suas habilidades, status e evoluções.
+O **Evo Deck** é uma aplicação web responsiva construída com **Next.js** que consome a [PokeAPI](https://pokeapi.co/) para exibir informações detalhadas sobre Pokémons, suas habilidades, status, evoluções entre outras características.
 
 Possui sistema de **autenticação com Firebase**, permitindo o cadastro e login de usuários.
 
@@ -54,42 +54,13 @@ pnpm lint    # Executa o lint no projeto
 
 ---
 
-## 📂 Estrutura do Projeto (exemplo)
-
-```
-evo-deck/
-├── app/
-│   ├── auth/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── utils/
-├── public/
-├── styles/
-├── tailwind.config.js
-├── tsconfig.json
-└── README.md
-```
-
----
 
 ## 📦 Instalação e Execução
 
 ```bash
-git clone https://github.com/seu-usuario/evo-deck.git
+git clone https://github.com/lvasconcelos20/Siapesq-Desafio-Front-End-Felipe-Vasconcelos.git
 cd evo-deck
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-> Também funciona com npm ou yarn se preferir.
-
----
-
-## ✅ Requisitos
-
-- Node.js 18 ou superior
-- pnpm (ou npm/yarn)
-- Conta no Firebase configurada com Auth e Firestore
-
----
