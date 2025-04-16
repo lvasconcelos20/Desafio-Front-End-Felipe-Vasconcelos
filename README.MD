@@ -43,17 +43,6 @@ Possui sistema de **autenticação com Firebase**, permitindo o cadastro e login
 
 ---
 
-## 🔧 Scripts
-
-```bash
-pnpm dev     # Inicia o servidor de desenvolvimento com Turbopack
-pnpm build   # Gera a build para produção
-pnpm start   # Inicia a aplicação em produção
-pnpm lint    # Executa o lint no projeto
-```
-
----
-
 
 ## 📦 Instalação e Execução
 
